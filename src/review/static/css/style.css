@@ -1,10 +1,18 @@
 .navbar-header
 {
 	width: 100%;
-	text-align: center;
+	position: relative;
 }
 
-.navbar-nav
+.navbar-brand
 {
-    justify-content: right;
+    position: absolute;
+    right: 50%;
 }
+
+#deconexion:hover
+{
+    text-decoration: none;
+    color: red;
+}
+
