@@ -1,0 +1,10 @@
+.navbar-header
+{
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav
+{
+    justify-content: right;
+}

@@ -10,7 +10,6 @@ class HomeTests(TestCase):
 
     def test_home_url_resolves_home_view(self):
         view = resolve('/')
-        print("lzlzld,sldn", view)
         self.assertEquals(view.func, index)
 
 # Create your tests here.
