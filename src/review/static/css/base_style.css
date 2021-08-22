@@ -1,0 +1,46 @@
+.navbar-header
+{
+	width: 100%;
+	position: relative;
+}
+
+.navbar-brand
+{
+    position: absolute;
+    right: 50%;
+}
+
+#deconexion:hover
+{
+    text-decoration: none;
+    color: red;
+}
+
+footer
+{
+    position: absolute;
+	bottom: 0;
+    width: 100%
+}
+
+#main
+{
+    min-height:100%;
+    margin: auto;
+    position: relative;
+    height: 100%;
+}
+
+#footer_message
+{
+	text-align: center;
+	text-decoration: underline;
+	padding-top: 15px;
+	padding-bottom: 0px;
+}
+
+body, html
+{
+    height:100%;
+}
+
