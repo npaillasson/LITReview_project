@@ -1,0 +1,12 @@
+.ticket_main
+{
+    max-width: 75%;
+    height: 100%;
+    margin: auto;
+}
+
+.new_ticket_title
+{
+    font-size: 1.2em;
+    text-align: center;
+}
