@@ -2,23 +2,25 @@
 {% load static %}
 {% block body %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
-<div class="ticket_main bg-danger">
-  <br>
-  <h1 class="new_ticket_title">Créer un nouveau ticket</h1>
-  <br>
-  <form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="id_subject">Titre</label>
-      <input type="text" class="form-control" id="id_subject" name="subject">
-    </div>
+<div class="ticket_main w-75 p-3 bg-white">
+  <div>
     <br>
-    <div class="form-group">
-      <label for="id_message">Déscription</label>
-      <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
-    </div>
+    <h1 class="new_ticket_title">Créer un nouveau ticket</h1>
     <br>
-    <button type="submit" class="btn btn-success">Envoyer</button>
-  </form>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_subject">Titre</label>
+          <input type="text" class="form-control" id="id_subject" name="subject">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="id_message">Déscription</label>
+          <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Envoyer</button>
+      </form>
+  </div>
 </div>
 {% endblock %}

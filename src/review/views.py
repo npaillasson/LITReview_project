@@ -5,5 +5,6 @@ def index(request):
     return render(request, 'review/index.html')
 
 def new_ticket(request):
+    print(request.POST)
     return render(request, 'review/new_ticket.html')
 

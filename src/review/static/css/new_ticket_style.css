@@ -10,3 +10,10 @@
     font-size: 1.2em;
     text-align: center;
 }
+
+.form_body
+{
+    width: 50%;
+    height: 100%
+    margin: auto;
+}
