@@ -19,7 +19,13 @@
           <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
         </div>
         <br>
-          <button type="submit" class="btn btn-primary float-end">Envoyer</button>
+        <div class="form-group">
+          <label for="file">Sélectionner l'image à envoyer (jpeg ou png)</label>
+          <br>
+          <input type="file" accept="image/jpeg, image/png" id="photo" name="photo">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary float-end">Envoyer</button>
       </form>
   </div>
 </div>
