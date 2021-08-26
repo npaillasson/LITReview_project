@@ -2,12 +2,22 @@
 {% load static %}
 {% block body %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
-<div class="ticket_main w-75 p-3 bg-white">
-  <div class="w-25 mx-auto">
+<div class="ticket_main w-75 p-3 bg-white d-flex">
+  <div class="w-100 text-center">
+      <div class="h-50 mt-5 pt-5">
     <br>
-    <h1 class="new_ticket_title">Inscrivez-vous</h1>
+    <h1 class="new_ticket_title">Inscrivez-vous maintenant</h1>
+      <br>
+      <div>
+          <button type="submit" class="btn btn-primary" onclick="window.location.href= '{% url 'review:new_account' %}'">S'inscrire !</button>
+    </div>
+   </div>
+  </div>
+    <div class="w-100">
     <br>
-      <form method="post">
+    <h1 class="new_ticket_title">Connectez-vous !</h1>
+    <br>
+      <form method="post" class="w-75 mx-auto">
         {% csrf_token %}
         <div class="form-group">
           <label for="id_subject">Nom d'utilisateur</label>
@@ -16,16 +26,15 @@
         <br>
         <div class="form-group">
           <label for="id_message">Mot de passe</label>
-          <input type="text" class="form-control" id="id_user_mdp_1" name="mdp_1"></input>
+          <input type="text" class="form-control" id="id_user_mdp_1" name="mdp_1">
         </div>
         <br>
         <div class="form-group">
             <label for="id_message">Confirmez votre Mot de passe</label>
-          <input type="text" class="form-control" id="id_user_mdp_2" name="mdp_2"></input>
+          <input type="text" class="form-control" id="id_user_mdp_2" name="mdp_2">
         </div>
         <br>
-        <button type="submit" class="btn btn-primary float-end">S'inscrire !</button>
-        <button type="button" class="btn btn-secondary float-end me-2">Retourner</button>
+        <button type="submit" class="btn btn-primary float-end">Se connecter !</button>
       </form>
   </div>
 </div>

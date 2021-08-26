@@ -16,3 +16,6 @@ def new_ticket(request):
 def new_account(request):
     return render(request, 'review/new_account.html')
 
+def auth(request):
+    return render(request, 'review/auth.html')
+
