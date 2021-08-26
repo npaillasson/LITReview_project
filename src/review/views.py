@@ -13,3 +13,6 @@ def new_ticket(request):
     print(User.objects.first())
     return render(request, 'review/new_ticket.html')
 
+def new_account(request):
+    return render(request, 'review/new_account.html')
+

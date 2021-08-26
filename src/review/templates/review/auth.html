@@ -1,0 +1,32 @@
+{% extends 'review/base.html'  %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
+<div class="ticket_main w-75 p-3 bg-white">
+  <div class="w-25 mx-auto">
+    <br>
+    <h1 class="new_ticket_title">Inscrivez-vous</h1>
+    <br>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_subject">Nom d'utilisateur</label>
+          <input type="text" class="form-control" id="id_user_name" name="user_name">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="id_message">Mot de passe</label>
+          <input type="text" class="form-control" id="id_user_mdp_1" name="mdp_1"></input>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="id_message">Confirmez votre Mot de passe</label>
+          <input type="text" class="form-control" id="id_user_mdp_2" name="mdp_2"></input>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary float-end">S'inscrire !</button>
+        <button type="button" class="btn btn-secondary float-end me-2">Retourner</button>
+      </form>
+  </div>
+</div>
+{% endblock %}
