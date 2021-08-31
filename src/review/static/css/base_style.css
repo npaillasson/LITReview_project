@@ -16,18 +16,10 @@
     color: red;
 }
 
-footer
-{
-    position: fixed;
-	bottom: 0;
-    width: 100%;
-}
-
 #base_main
 {
     min-height:100%;
     margin: auto;
-    position: relative;
     height: 100%;
 }
 
@@ -39,8 +31,9 @@ footer
 	padding-bottom: 0px;
 }
 
-body, html
+footer
 {
-    height:100%;
+    height: 50px;
+    width: 100%
 }
 
