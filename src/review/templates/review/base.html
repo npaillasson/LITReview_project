@@ -17,6 +17,8 @@
               <div class="container-fluid">
                 <div class="navbar-header">
                   <a class="navbar-brand mx-auto" href="/">LITReview</a>
+                  <div>
+                  {% if not request.is_authenticated %}
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                   </button>
@@ -37,6 +39,8 @@
                     </ul>
                   </div>
                 </div>
+                {% endif %}
+              </div>
               </div>
             </nav>
           </header>
