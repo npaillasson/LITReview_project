@@ -15,10 +15,14 @@
           <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
               <div class="container-fluid">
+                {% if request.is_authenticated %}
                 <div class="navbar-header">
+                {% else %}
+                <div class="navbar-header d-flex flex-row">
+                {% endif %}
                   <a class="navbar-brand mx-auto" href="/">LITReview</a>
                   <div>
-                  {% if not request.is_authenticated %}
+                  {% if request.is_authenticated %}
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                   </button>
@@ -39,6 +43,8 @@
                     </ul>
                   </div>
                 </div>
+                {% else %}
+                <div id="unauthenticated_user_bar"> </div>
                 {% endif %}
               </div>
               </div>
