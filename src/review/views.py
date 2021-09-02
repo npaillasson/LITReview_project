@@ -12,7 +12,8 @@ def new_ticket(request):
     #    form = NewTicketForm(request.POST)
     #print(request.POST)
     #print(User.objects.first())
-    return render(request, 'review/new_ticket.html', {'form' : NewTicketForm})
+    print(request.path)
+    return render(request, 'review/new_ticket.html', {'form': NewTicketForm, 'page': request.path})
 
 def new_account(request):
     return render(request, 'review/new_account.html')
