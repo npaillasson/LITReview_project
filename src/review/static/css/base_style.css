@@ -1,13 +1,7 @@
 .navbar-header
 {
 	width: 100%;
-	position: relative;
-}
-
-.navbar-brand
-{
-    position: absolute;
-    right: 50%;
+	text-align: center;
 }
 
 #deconexion:hover
@@ -41,6 +35,3 @@ html, body
 {
     height: 100%
 }
-
-
-
