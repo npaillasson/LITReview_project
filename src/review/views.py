@@ -12,7 +12,7 @@ def new_ticket(request):
     #    form = NewTicketForm(request.POST)
     #print(request.POST)
     #print(User.objects.first())
-    print(request.path)
+    print(request.POST)
     return render(request, 'review/new_ticket.html', {'form': NewTicketForm, 'page': request.path})
 
 def new_account(request):
