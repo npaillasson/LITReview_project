@@ -57,9 +57,11 @@
           </header>
         </div>
       </div>
-      <div class="row gx-0 justify-content-center flex-grow-1 flex_shrink-0 w-auto" style="background-color: rgb(233,233,233);">
+      <div class="content-background row gx-0 justify-content-center flex-grow-1 flex_shrink-0 w-auto" style="background-color: rgb(233,233,233);">
         <div class="col-12">
-        {% block body %}{% endblock %}
+          <div class="bg-white container d-flex h-100 justify-content-center">
+            {% block body %}{% endblock %}
+          </div>
         </div>
       </div>
       <div class="row gx-0 flex-shrink-0">
