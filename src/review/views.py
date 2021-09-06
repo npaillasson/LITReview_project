@@ -15,9 +15,5 @@ def new_ticket(request):
     print(request.POST)
     return render(request, 'review/new_ticket.html', {'form': NewTicketForm, 'page': request.path})
 
-def new_account(request):
-    return render(request, 'review/new_account.html')
 
-def auth(request):
-    return render(request, 'review/auth.html')
 
