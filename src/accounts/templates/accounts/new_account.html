@@ -1,6 +1,7 @@
 {% extends 'review/base.html'  %}
 {% load static %}
 {% block body %}
+{% load widget_tweaks %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
 <div class="col-12 col-md-8 align-self-center">
   <br>
@@ -9,20 +10,13 @@
     <form method="post" class="justify-content-center col-10 mx-auto">
       {% csrf_token %}
       <div class="col-sm-6 col-9 mx-auto">
+      {% for field in form %}
         <div class="form-group">
-          <label for="id_subject">Nom d'utilisateur</label>
-          <input type="text" class="form-control" id="id_user_name" name="user_name">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="id_message">Mot de passe</label>
-          <input type="text" class="form-control" id="id_user_mdp_1" name="mdp_1">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="id_message" class="text-nowrap">Confirmez votre Mot de passe</label>
-          <input type="text" class="form-control" id="id_user_mdp_2" name="mdp_2">
-        </div>
+          {{ field.label_tag }}
+
+          {% render_field field class="form-control" %}
+          </div>
+          {% endfor %}
       </div>
       <br>
       <div class="text-end">
