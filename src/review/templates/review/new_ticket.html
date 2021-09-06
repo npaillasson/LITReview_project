@@ -1,7 +1,6 @@
 {% extends 'review/base.html'  %}
 {% load static %}
 {% block body %}
-{% load widget_tweaks %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
   <div class="col-8">
     <br>
@@ -13,13 +12,7 @@
     <br>
       <form method="post">
         {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group">
-          {{ field.label_tag }}
-
-          {% render_field field class="form-control" %}
-          </div>
-          {% endfor %}
+        {% include 'includes/form.html' %}
         <br>
         {% if page == '/new_ticket/'%}
         <button type="submit" class="btn btn-primary float-end">Envoyer</button>

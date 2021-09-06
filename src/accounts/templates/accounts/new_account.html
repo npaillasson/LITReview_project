@@ -10,13 +10,7 @@
     <form method="post" class="justify-content-center col-10 mx-auto">
       {% csrf_token %}
       <div class="col-sm-6 col-9 mx-auto">
-      {% for field in form %}
-        <div class="form-group">
-          {{ field.label_tag }}
-
-          {% render_field field class="form-control" %}
-          </div>
-          {% endfor %}
+      {% include 'includes/form.html' %}
       </div>
       <br>
       <div class="text-end">
