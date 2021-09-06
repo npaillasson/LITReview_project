@@ -17,15 +17,7 @@
     <br>
       <form method="post" class="col-md-6 col-8 mx-auto">
         {% csrf_token %}
-        <div class="form-group">
-          <label for="id_subject">Nom d'utilisateur</label>
-          <input type="text" class="form-control" id="id_user_name" name="user_name">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="id_message">Mot de passe</label>
-          <input type="text" class="form-control" id="id_user_mdp_1" name="mdp_1">
-        </div>
+        {% include 'includes/form.html' %}
         <br>
         <button type="submit" class="btn btn-primary float-end">Se connecter !</button>
       </form>
