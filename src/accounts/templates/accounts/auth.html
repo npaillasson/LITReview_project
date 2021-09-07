@@ -8,6 +8,7 @@
     <h1 class="new_ticket_title">Inscrivez-vous maintenant</h1>
     <br>
     <div class="text-center mb-2 mb-md-0">
+      <input type="hidden" name="next" value="{{ next }}">
       <button type="submit" class="btn btn-primary" onclick="window.location.href= '{% url 'auth_system:new_account' %}'">S'inscrire !</button>
     </div>
   </div>

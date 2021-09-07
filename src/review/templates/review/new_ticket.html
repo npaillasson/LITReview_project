@@ -10,7 +10,7 @@
     <h1 class="new_ticket_title">Modifier votre ticket</h1>
     {% endif %}
     <br>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% include 'includes/form.html' %}
         <br>
