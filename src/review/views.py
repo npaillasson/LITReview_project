@@ -24,5 +24,11 @@ def new_ticket(request):
         form = NewTicketForm
     return render(request, 'review/new_ticket.html', {'form': form, 'page': request.path})
 
+@login_required()
+def subscription_page(request):
+
+    section = 'subscription'
+    return render(request, 'review/subscriptions.html', {'section': section})
+
 
 
