@@ -1,9 +1,9 @@
 {% extends 'review/base.html'  %}
 Index
 {% block body %}
-<div class="container d-flex h-100" style="background: rgb(123, 123, 123);">
-	<div class="flex-grow-1">
-		<h1>Hello world !</h1>
+	<div class="col-10">
+		{% if page == '/' %}
+		<h1 class="bd-title m-2">Bonjour {{user}} !</h1>
+		{% endif %}
 	</div>
-</div>
 {% endblock %}

@@ -19,11 +19,11 @@
                 <div class="container-fluid">
                   <div class="row gx-0 flex-lg-row flex-row-reverse">
                     <div class="navbar-header d-flex flex-row col-lg-6 col-7">
-                      <a class="navbar-brand ms-lg-auto" href="/">LITReview</a>
+                      <a class="navbar-brand ms-lg-auto" href="{% url 'review:index' %}">LITReview</a>
                     </div>
                 {% else %}
                 <div class="navbar-header d-flex flex-row">
-                  <a class="navbar-brand mx-auto" href="/">LITReview</a>
+                  <a class="navbar-brand mx-auto" href="{% url 'review:index' %}">LITReview</a>
                 {% endif %}
                 {% if user.is_authenticated %}
                     <button class="navbar-toggler me-auto col-2 col-sm-1 ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,25 @@
                       <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-md-auto mb-2 mb-lg-0">
                           <li class="nav-item ms-2 ms-lg-0">
+                            {% if section == 'flux' %}
+                            <a class="nav-link active" aria-current="page" href="#">Flux</a>
+                            {% else %}
                             <a class="nav-link" aria-current="page" href="#">Flux</a>
+                            {% endif %}
                           </li>
                           <li class="nav-item ms-2 ms-lg-0">
+                            {% if section == 'post' %}
+                            <a class="nav-link active" href="#">Posts</a>
+                            {% else %}
                             <a class="nav-link" href="#">Posts</a>
+                            {% endif %}
                           </li>
                           <li class="nav-item ms-2 ms-lg-0">
+                            {% if section == 'subscription' %}
+                            <a class="nav-link active" href="#">Abonnements</a>
+                            {% else %}
                             <a class="nav-link" href="#">Abonnements</a>
+                            {% endif %}
                           </li>
                           <li class="nav-item ms-2 ms-lg-0">
                             <a class="nav-link" id="deconexion" href="{% url 'auth_system:logout' %}">Se déconnecter</a>

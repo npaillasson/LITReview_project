@@ -6,7 +6,8 @@ from .forms import NewTicketForm
 
 @login_required
 def index(request):
-    return render(request, 'review/index.html')
+    section = "flux"
+    return render(request, 'review/index.html', {'page': request.path, 'section': section})
 
 @login_required()
 def new_ticket(request):
