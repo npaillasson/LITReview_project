@@ -31,9 +31,7 @@ def subscription_page(request):
     section = 'subscription'
     Users = get_user_model()
     list_of_users = Users.objects.all()
-    list_of_users = list(list_of_users)
-    list_of_users.remove(request.user)
-    print("TYPE", type(list_of_users))
+    list_of_users = list_of_users
     print("USERS", list_of_users)
     if request.method == 'POST':
         form = NewFollowedUser(request.POST)
@@ -45,6 +43,7 @@ def subscription_page(request):
             return redirect('review:subscription_page')
     else:
         form = NewFollowedUser()
+
     return render(request, 'review/subscriptions.html', {'form': form, 'section': section})
 
 
