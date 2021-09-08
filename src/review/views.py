@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewTicketForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import NewTicketForm
+from .forms import NewTicketForm, NewFollowedUser
 
 @login_required
 def index(request):
@@ -28,7 +28,16 @@ def new_ticket(request):
 def subscription_page(request):
 
     section = 'subscription'
-    return render(request, 'review/subscriptions.html', {'section': section})
+    if request.method == 'POST':
+        form = NewFollowedUser(request.POST)
+        if form.is_valid():
+            user_follow = form.save(commit=False)
+            user_follow.user = request.user
+            user_follow.save()
+            return redirect('review:subscription_page')
+    else:
+        form = NewFollowedUser
+    return render(request, 'review/subscriptions.html', {'form': form, 'section': section})
 
 
 

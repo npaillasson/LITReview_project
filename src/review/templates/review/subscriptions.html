@@ -5,8 +5,9 @@
   <div class="col-10">
       <h1 class="text-center fs-4 m-3">Suivre d'autres utilisateurs</h1>
       <div>
-          <form class="d-flex m-3 col-9 col-sm-5 mx-auto">
-              <input class="form-control me-2" type="search" placeholder="Nom d'utilisateur ..." aria-label="Search">
+          <form method="post" class="d-flex m-3 col-9 col-sm-5 mx-auto">
+              {% csrf_token %}
+              {% include 'includes/form.html' %}
               <button class="btn btn-outline-success" type="submit">Envoyer</button>
           </form>
       </div>
