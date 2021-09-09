@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login as auth_login
 
+
 def new_account(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -15,3 +16,5 @@ def new_account(request):
 
 def auth(request):
     return render(request, 'accounts/auth.html')
+
+

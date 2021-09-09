@@ -3,6 +3,8 @@ from .forms import NewTicketForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.views.generic import DeleteView
+from django.urls import reverse_lazy
 from .forms import NewTicketForm, NewFollowedUser
 from .models import UserFollows
 
@@ -50,5 +52,7 @@ def subscription_page(request):
                                                          'list_of_following_users': list_of_following_users,
                                                          'list_of_followed_users': list_of_followed_users})
 
-
+class DeleteSubscription(DeleteView):
+    model = UserFollows
+    success_url = reverse_lazy('review:subscription_page')
 

@@ -18,9 +18,9 @@
               <li class="m-2">
                   <div class="w-100 border-bottom">
                       <div class="d-flex">
-                         <p class="col-8"> Vous suivez {{ sub.followed_user }}</p>
+                         <p class="col-8"> Vous suivez {{ sub.followed_user}} </p>
                         <div class="col-4 text-end">
-                            <button class="btn-sm btn-danger align-middle" type="submit" id="{{sub}}">Se désabonner</button>
+                            <button class="btn-sm btn-danger align-middle" type="button" onclick="window.location.href= '{{sub.id}}/delete_subscription/'">Se désabonner</button>
                         </div>
                       </div>
                   </div>
