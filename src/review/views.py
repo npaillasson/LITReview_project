@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from .forms import NewTicketForm, NewFollowedUser
+from .models import UserFollows
 
 @login_required
 def index(request):
@@ -30,9 +31,10 @@ def subscription_page(request):
 
     section = 'subscription'
     Users = get_user_model()
+    followed_list = UserFollows.objects.all()
+    list_of_following_users = followed_list.filter(user=request.user.id)
+    list_of_followed_users = followed_list.filter(followed_user=request.user.id)
     list_of_users = Users.objects.all()
-    list_of_users = list_of_users
-    print("USERS", list_of_users)
     if request.method == 'POST':
         form = NewFollowedUser(request.POST)
         if form.is_valid():
@@ -44,7 +46,9 @@ def subscription_page(request):
     else:
         form = NewFollowedUser()
 
-    return render(request, 'review/subscriptions.html', {'form': form, 'section': section})
+    return render(request, 'review/subscriptions.html', {'form': form, 'section': section,
+                                                         'list_of_following_users': list_of_following_users,
+                                                         'list_of_followed_users': list_of_followed_users})
 
 
 

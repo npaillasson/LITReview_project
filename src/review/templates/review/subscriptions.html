@@ -13,14 +13,29 @@
       </div>
       <div>
           <h1 class="text-center fs-4 m-3">Abonnement(s)</h1>
-          <ul class="h-25 col-9 border mx-auto">
-
+          <ul class="h-25 border mx-auto col-md-8 col-12 list-unstyled overflow-scroll">
+              {% for sub in list_of_following_users %}
+              <li class="m-2">
+                  <div class="w-100 border-bottom">
+                      <div class="d-flex">
+                         <p class="col-8"> Vous suivez {{ sub.followed_user }}</p>
+                        <div class="col-4 text-end">
+                            <button class="btn-sm btn-danger align-middle" type="submit" id="{{sub}}">Se désabonner</button>
+                        </div>
+                      </div>
+                  </div>
+              </li>
+              {% endfor %}
           </ul>
       </div>
       <div class="justify-content-center">
           <h1 class="text-center fs-4 m-3">Abonné(es)</h1>
-          <ul class="h-25 col-9 border mx-auto">
-
+          <ul class="h-25 border mx-auto col-md-8 col-12 list-unstyled overflow-scroll">
+              {% for sub in list_of_followed_users %}
+              <li class="m-2 border-bottom">
+                  <p class="col-12"> {{ sub.user }} vous suit</p>
+              </li>
+              {% endfor %}
           </ul>
       </div>
   </div>
