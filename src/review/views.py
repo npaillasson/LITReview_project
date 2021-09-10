@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewTicketForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, CreateView
 from django.urls import reverse_lazy
 from .forms import NewTicketForm, NewFollowedUser
 from .models import UserFollows
@@ -32,13 +33,17 @@ def new_ticket(request):
 def subscription_page(request):
 
     section = 'subscription'
-    Users = get_user_model()
-    followed_list = UserFollows.objects.all()
-    list_of_following_users = followed_list.filter(user=request.user.id)
-    list_of_followed_users = followed_list.filter(followed_user=request.user.id)
-    list_of_users = Users.objects.all()
     if request.method == 'POST':
-        form = NewFollowedUser(request.POST)
+        followed_user = dict(request.POST)["followed_user"][0]
+        followed_user = User.objects.filter(username=followed_user).first()
+        print(followed_user.id)
+        form = NewFollowedUser()
+        form.followed_user = followed_user.id
+        print('this is form',form)
+        #user_follow = form.save(commit=False)
+        #user_follow.followed_user = followed_user
+        #print(user_follow.__dict__)
+        #print(type('azazaz', type(form.followed_user)))
         if form.is_valid():
             user_follow = form.save(commit=False)
             user_follow.user = request.user
@@ -49,10 +54,25 @@ def subscription_page(request):
         form = NewFollowedUser()
 
     return render(request, 'review/subscriptions.html', {'form': form, 'section': section,
-                                                         'list_of_following_users': list_of_following_users,
-                                                         'list_of_followed_users': list_of_followed_users})
+                                                         'list_of_following_users': request.user.following.all(),
+                                                         'list_of_followed_users': request.user.following_by.all()})
 
+@method_decorator(login_required, name='dispatch')
 class DeleteSubscription(DeleteView):
     model = UserFollows
     success_url = reverse_lazy('review:subscription_page')
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteSubscription(CreateView):
+    model = UserFollows
+    form_class = NewFollowedUser
+    success_url = reverse_lazy('review:subscription_page')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)

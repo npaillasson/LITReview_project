@@ -10,7 +10,7 @@ class NewTicketForm(forms.ModelForm):
 
 
 class NewFollowedUser(forms.ModelForm):
-    #followed_user = forms.CharField(widget=forms.Textarea())
+    followed_user = forms.CharField(label='', widget=forms.Textarea(attrs={'rows': 1}))
 
     class Meta:
         model = UserFollows

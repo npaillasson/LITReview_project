@@ -5,10 +5,10 @@
   <div class="col-10">
       <h1 class="text-center fs-4 m-3">Suivre d'autres utilisateurs</h1>
       <div>
-          <form method="post" class="d-flex m-3 col-9 col-sm-5 mx-auto">
+          <form method="post" class="d-flex m-3 col-md-8 col-12 mx-auto">
               {% csrf_token %}
               {% include 'includes/form.html' %}
-              <button class="btn btn-outline-success" type="submit">Envoyer</button>
+              <button class="btn btn-outline-success m-2" type="submit">Envoyer</button>
           </form>
       </div>
       <div>
@@ -18,7 +18,7 @@
               <li class="m-2">
                   <div class="w-100 border-bottom">
                       <div class="d-flex">
-                         <p class="col-8"> Vous suivez {{ sub.followed_user}} </p>
+                         <p class="col-8">{{ sub.followed_user}} </p>
                         <div class="col-4 text-end">
                             <button class="btn-sm btn-danger align-middle" type="button" onclick="window.location.href= '{{sub.id}}/delete_subscription/'">Se désabonner</button>
                         </div>
@@ -33,7 +33,7 @@
           <ul class="h-25 border mx-auto col-md-8 col-12 list-unstyled overflow-scroll">
               {% for sub in list_of_followed_users %}
               <li class="m-2 border-bottom">
-                  <p class="col-12"> {{ sub.user }} vous suit</p>
+                  <p class="col-12"> {{ sub.user }}</p>
               </li>
               {% endfor %}
           </ul>
