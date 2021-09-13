@@ -6,7 +6,8 @@
       <h1 class="text-center fs-4 m-3">Suivre d'autres utilisateurs</h1>
       <div>
           <form class="d-flex m-3 col-md-8 col-12 mx-auto" action="{% url 'review:new_follow' %}" method="get">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="subscribe_to" >
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Nom d'utilisateur" aria-label="Search" name="subscribe_to" >
               <button class="btn btn-outline-success m-2" type="submit">Envoyer</button>
           </form>
       </div>
