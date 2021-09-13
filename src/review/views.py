@@ -39,9 +39,8 @@ def subscription_page(request):
                                                          'list_of_followed_users': request.user.following_by.all()})
 
 @login_required()
-def new_follow(request, username):
-    print(username)
-    user_follow = User.objects.filter(username=username).first()
+def new_follow(request):
+    user_follow = User.objects.get(username=request.GET.get("subscribe_to"))
     if user_follow:
         if user_follow == request.user:
             return redirect('review:subscription_page')
