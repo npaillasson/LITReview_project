@@ -33,44 +33,32 @@ def new_ticket(request):
 def subscription_page(request):
 
     section = 'subscription'
-    if request.method == 'POST':
-        followed_user = dict(request.POST)["followed_user"][0]
-        followed_user = User.objects.filter(username=followed_user).first()
-        print(followed_user.id)
-        form = NewFollowedUser()
-        form.followed_user = followed_user.id
-        print('this is form',form)
-        #user_follow = form.save(commit=False)
-        #user_follow.followed_user = followed_user
-        #print(user_follow.__dict__)
-        #print(type('azazaz', type(form.followed_user)))
-        if form.is_valid():
-            user_follow = form.save(commit=False)
-            user_follow.user = request.user
-            if user_follow.user != user_follow.followed_user:
-                user_follow.save()
-            return redirect('review:subscription_page')
-    else:
-        form = NewFollowedUser()
 
-    return render(request, 'review/subscriptions.html', {'form': form, 'section': section,
+    return render(request, 'review/subscriptions.html', {'section': section,
                                                          'list_of_following_users': request.user.following.all(),
                                                          'list_of_followed_users': request.user.following_by.all()})
+
+@login_required()
+def new_follow(request, username):
+    print(username)
+    user_follow = User.objects.filter(username=username).first()
+    if user_follow:
+        if user_follow == request.user:
+            return redirect('review:subscription_page')
+        else:
+            NewFollowedUser = UserFollows()
+            NewFollowedUser.user = request.user
+            NewFollowedUser.followed_user = user_follow
+            try:
+                NewFollowedUser.save()
+            except:
+                pass
+            return redirect('review:subscription_page')
+
 
 @method_decorator(login_required, name='dispatch')
 class DeleteSubscription(DeleteView):
     model = UserFollows
-    success_url = reverse_lazy('review:subscription_page')
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(user=self.request.user)
-
-
-@method_decorator(login_required, name='dispatch')
-class DeleteSubscription(CreateView):
-    model = UserFollows
-    form_class = NewFollowedUser
     success_url = reverse_lazy('review:subscription_page')
 
     def get_queryset(self):
