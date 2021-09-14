@@ -6,14 +6,35 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
 from django.views.generic import DeleteView, CreateView
 from django.urls import reverse_lazy
+from operator import attrgetter
 from .forms import NewTicketForm, NewFollowedUser
 from .models import UserFollows, Ticket
 
 @login_required
 def index(request):
     section = "flux"
-    user_tickets = Ticket.objects.filter(user=request.user)
-    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': user_tickets})
+    followed_user = []
+    followed_users_tickets = []
+    for user in request.user.following.all():
+        followed_user.append(user.followed_user)
+    tickets_to_display = list(Ticket.objects.filter(user=request.user))
+    for user in followed_user:
+        followed_users_tickets.extend(list(Ticket.objects.filter(user=user)))
+    tickets_to_display.extend(followed_users_tickets)
+    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': tickets_to_display})
+
+@login_required
+def posts(request):
+    section = "posts"
+    followed_user = []
+    followed_users_tickets = []
+    for user in request.user.following.all():
+        followed_user.append(user.followed_user)
+    tickets_to_display = list(Ticket.objects.filter(user=request.user))
+    for user in followed_user:
+        followed_users_tickets.extend(list(Ticket.objects.filter(user=user)))
+    tickets_to_display.extend(followed_users_tickets)
+    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': tickets_to_display})
 
 @login_required()
 def new_ticket(request):

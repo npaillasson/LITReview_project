@@ -40,10 +40,10 @@
                             {% endif %}
                           </li>
                           <li class="nav-item ms-2 ms-lg-0">
-                            {% if section == 'post' %}
-                            <a class="nav-link active" href="#">Posts</a>
+                            {% if section == 'posts' %}
+                            <a class="nav-link active" href="{% url 'review:posts' %}">Posts</a>
                             {% else %}
-                            <a class="nav-link" href="#">Posts</a>
+                            <a class="nav-link" href="{% url 'review:posts' %}">Posts</a>
                             {% endif %}
                           </li>
                           <li class="nav-item ms-2 ms-lg-0">
