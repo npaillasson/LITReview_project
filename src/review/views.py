@@ -21,6 +21,7 @@ def index(request):
     for user in followed_user:
         followed_users_tickets.extend(list(Ticket.objects.filter(user=user)))
     tickets_to_display.extend(followed_users_tickets)
+    tickets_to_display.sort(key=attrgetter('time_created'), reverse=True)
     return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': tickets_to_display})
 
 @login_required

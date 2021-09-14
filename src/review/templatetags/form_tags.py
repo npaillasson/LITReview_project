@@ -8,8 +8,6 @@ def field_type(bound_field):
 
 @register.filter
 def input_class(bound_field):
-    print(bound_field.form.is_bound)
-    print(bound_field)
     css_class = ''
     if bound_field.form.is_bound:
         if bound_field.errors:
@@ -17,3 +15,12 @@ def input_class(bound_field):
         elif field_type(bound_field) != 'PasswordInput':
             css_class = 'is-valid'
     return 'form-control {}'.format(css_class)
+
+@register.filter()
+def type_object(object_to_check, autoescape=True):
+    if str(type(object_to_check)) == "<class 'review.models.Ticket'>":
+        return 'Ticket'
+    elif str(type(object_to_check)) == "<class 'review.models.Review'>":
+        return 'Review'
+    else:
+        return str(type(object_to_check))

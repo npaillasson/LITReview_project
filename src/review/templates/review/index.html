@@ -1,15 +1,19 @@
 {% extends 'review/base.html'  %}
+{% load form_tags %}
 Index
 {% block body %}
 	<div class="col-10">
-		{% if page == '/' %}
-		<h1 class="bd-title fs-3 m-2">Bonjour {{user}} !</h1>
+		{% if section == 'flux' %}
+		<div class="d-flex col-lg-9 col-12 m-2 justify-content-around mx-auto">
+				<button class="btn-sm btn-outline-secondary col-lg-4 col-5 m-2" onclick="window.location.href= '{% url 'review:new_ticket' %}'"> Demander une critique</button>
+				<button class="btn-sm btn-outline-secondary col-lg-4 col-5 m-2" onclick="window.location.href= '{% url 'review:new_ticket' %}'"> Créer une critique</button>
+		</div>
 		{% endif %}
 		{% if not ticket_to_display %}
 		<div class="d-flex h-75">
-			<div class="col-12 border rounded align-self-center">
-				<h1 class="fs-4">Oups... on dirait que votre flux est vide!</h1>
-				<p>Pas d'inquiétudes :)</p>
+			<div class="col-lg-8 col-12 border rounded align-self-center mx-auto">
+				<h1 class="fs-4 text-center">Oups... on dirait que votre flux est vide!</h1>
+				<br>
 				<div class="d-flex justify-content-around">
 					<a href="{% url 'review:subscription_page' %}">s'abonner!</a>
 					<a href="{% url 'review:new_ticket' %}">Créer une critique!</a>
@@ -20,7 +24,8 @@ Index
 		{% endif %}
 		<div class="">
 			{% for ticket in ticket_to_display %}
-			<div class="col-12 border rounded m-2">
+			{% if ticket|type_object == 'Ticket' %}
+			<div class="col-12 col-lg-8 border rounded m-2 mx-auto">
 				 <div class="d-flex justify-content-between">
 					 <p>{{ticket.user}}</p>
 					 <p>{{ticket.time_created}}</p>
@@ -29,6 +34,7 @@ Index
 				<p>{{ticket.description}}</p>
 				{% if ticket.image %}
 				<img class="m-2" src="media/{{ ticket.image }}" style="width: 12rem">
+				{% endif %}
 				{% endif %}
 			</div>
 			{% endfor %}
