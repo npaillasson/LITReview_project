@@ -5,9 +5,9 @@ Index
 		{% if page == '/' %}
 		<h1 class="bd-title fs-3 m-2">Bonjour {{user}} !</h1>
 		{% endif %}
+		{% if not ticket_to_display %}
 		<div class="d-flex h-75">
 			<div class="col-12 border rounded align-self-center">
-				{% if not ticket_to_display %}
 				<h1 class="fs-4">Oups... on dirait que votre flux est vide!</h1>
 				<p>Pas d'inquiétudes :)</p>
 				<div class="d-flex justify-content-around">
@@ -15,13 +15,23 @@ Index
 					<a href="{% url 'review:new_ticket' %}">Créer une critique!</a>
 					<a href="{% url 'review:new_ticket' %}">Créer un nouveau ticket!</a>
 				</div>
-				{% endif %}
-				{% for ticket in ticket_to_display %}
-					<h1>{{ ticket.title }}</h1>
-					<p>{{ticket.description}}</p>
-					<img src="media/{{ ticket.image }}">
-				{% endfor %}
 			</div>
+		</div>
+		{% endif %}
+		<div class="">
+			{% for ticket in ticket_to_display %}
+			<div class="col-12 border rounded m-2">
+				 <div class="d-flex justify-content-between">
+					 <p>{{ticket.user}}</p>
+					 <p>{{ticket.time_created}}</p>
+				 </div>
+				<p class="fs-3">{{ ticket.title }}</p>
+				<p>{{ticket.description}}</p>
+				{% if ticket.image %}
+				<img class="m-2" src="media/{{ ticket.image }}" style="width: 12rem">
+				{% endif %}
+			</div>
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}
