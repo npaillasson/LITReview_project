@@ -7,12 +7,13 @@ from django.contrib.auth import get_user_model
 from django.views.generic import DeleteView, CreateView
 from django.urls import reverse_lazy
 from .forms import NewTicketForm, NewFollowedUser
-from .models import UserFollows
+from .models import UserFollows, Ticket
 
 @login_required
 def index(request):
     section = "flux"
-    return render(request, 'review/index.html', {'page': request.path, 'section': section})
+    user_tickets = Ticket.objects.filter(user=request.user)
+    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': user_tickets})
 
 @login_required()
 def new_ticket(request):
