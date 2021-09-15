@@ -1,0 +1,14 @@
+{% extends 'review/base.html'  %}
+{% load static %}
+{% block body %}
+  <div class="col-10 align-self-center mx-auto">
+      <form method="post">
+          {% csrf_token %}
+          {% block message %}{% endblock %}
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-danger m-1" type="submit" >oui</button>
+              {% block redirect_button %}{% endblock %}
+          </div>
+      </form>
+  </div>
+{% endblock %}

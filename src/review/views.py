@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
-from django.views.generic import DeleteView, CreateView
+from django.views.generic import DeleteView, UpdateView
 from django.urls import reverse_lazy
 from operator import attrgetter
 from .forms import NewTicketForm, NewReviewForm
@@ -87,6 +87,30 @@ def new_follow(request):
 class DeleteSubscription(DeleteView):
     model = UserFollows
     success_url = reverse_lazy('review:subscription_page')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+@method_decorator(login_required, name='dispatch')
+class EditTicket(UpdateView):
+    model = Ticket
+    fields = ('description', 'image', )
+    template_name = 'review/new_ticket.html'
+
+    def form_valid(self, form):
+        ticket = form
+        ticket.save()
+        return redirect('review:index')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+@method_decorator(login_required, name='dispatch')
+class DeleteTicket(DeleteView):
+    model = Ticket
+    success_url = reverse_lazy('review:index')
 
     def get_queryset(self):
         queryset = super().get_queryset()

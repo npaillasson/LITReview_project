@@ -6,7 +6,8 @@
     {% if page == '/new_ticket/'%}
     <h1 class="fs-5 text-center">Créer un nouveau ticket</h1>
     {% else %}
-    <h1 class="fs-5">Modifier votre ticket</h1>
+    <h1 class="fs-5 text-center">Modifier votre ticket</h1>
+    <p class="fs-5">Titre: {{ticket.title}}</p>
     {% endif %}
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

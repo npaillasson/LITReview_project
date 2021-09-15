@@ -1,0 +1,7 @@
+{% extends 'includes/delete_object.html'  %}
+{% block message %}
+<h1 class="fs-5 text-center">Souhaitez-vous vraiment supprimer votre demande de critique?"?</h1>
+{% endblock %}
+{% block redirect_button %}
+<button class="btn btn-primary m-1" type="button" onclick="window.location.href= '{% url 'review:index' %}'" >non</button>
+{% endblock %}
