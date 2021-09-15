@@ -2,6 +2,12 @@
 {% load form_tags %}
 
 {% for field in form %}
+{% if field|field_type == 'RadioSelect' %}
+  <div class="form-group d-flex flex-column">
+    {{ field.label_tag }}
+    {% render_field field class="form-check" %}
+  </div>
+{% else %}
   <div class="form-group">
     {{ field.label_tag }}
     {% render_field field class=field|input_class %}
@@ -14,6 +20,7 @@
       <small class="form-text text-muted">
         {{ field.help_text|safe }}
       </small>
-    {% endif %}
   </div>
+    {% endif %}
+    {% endif %}
 {% endfor %}

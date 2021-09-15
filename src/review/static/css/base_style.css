@@ -12,3 +12,13 @@
 	padding-bottom: 0px;
 }
 
+html, body
+{
+    height: 100%
+}
+
+footer
+{
+    height: 50px;
+    width: 100%;
+}

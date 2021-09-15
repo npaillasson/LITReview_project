@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
-from django.views.generic import DeleteView, UpdateView
+from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from operator import attrgetter
 from .forms import NewTicketForm, NewReviewForm
-from .models import UserFollows, Ticket
+from .models import UserFollows, Ticket, Review
 
 @login_required
 def index(request):
@@ -51,11 +51,6 @@ def new_ticket(request):
     else:
         form = NewTicketForm()
     return render(request, 'review/new_ticket.html', {'form': form, 'page': request.path})
-
-@login_required()
-def new_review(request):
-    form = NewReviewForm()
-    return render(request, 'review/new_review.html', {'form': form})
 
 @login_required()
 def subscription_page(request):
@@ -115,3 +110,27 @@ class DeleteTicket(DeleteView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
+@method_decorator(login_required, name='dispatch')
+class CreationReview(CreateView):
+    model = Review
+    form_class = NewReviewForm
+    success_url = reverse_lazy('review:index')
+    template_name = 'review/new_review.html'
+    context_object_name = 'review'
+
+
+    def form_valid(self, form):
+        review = form.save(commit=False)
+        print(self.kwargs['pk'])
+        review.ticket = Ticket.objects.get(id=self.kwargs['pk'])
+        review.user = self.request.user
+        review.save()
+        return redirect('review:index')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['ticket'] = Ticket.objects.get(id=self.kwargs['pk'])
+        return context
