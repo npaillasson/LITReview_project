@@ -2,10 +2,9 @@
 {% load static %}
 {% block body %}
 {% load widget_tweaks %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
 <div class="col-12 col-md-8 align-self-center">
   <br>
-  <h1 class="new_ticket_title">Inscrivez-vous</h1>
+  <h1 class="fs-5 text-center">Inscrivez-vous</h1>
   <br>
     <form method="post" class="justify-content-center col-10 mx-auto">
       {% csrf_token %}

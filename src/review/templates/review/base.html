@@ -22,7 +22,7 @@
                       <a class="navbar-brand ms-lg-auto" href="{% url 'review:index' %}">LITReview</a>
                     </div>
                 {% else %}
-                <div class="navbar-header d-flex flex-row">
+                <div class="navbar-header d-flex flex-row col-12">
                   <a class="navbar-brand mx-auto" href="{% url 'review:index' %}">LITReview</a>
                 {% endif %}
                 {% if user.is_authenticated %}

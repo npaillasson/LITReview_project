@@ -1,20 +1,7 @@
-.navbar-header
-{
-	width: 100%;
-	text-align: center;
-}
-
 #deconexion:hover
 {
     text-decoration: none;
     color: red;
-}
-
-#base_main
-{
-    min-height:100%;
-    margin: auto;
-    height: 100%;
 }
 
 #footer_message
@@ -25,13 +12,3 @@
 	padding-bottom: 0px;
 }
 
-footer
-{
-    height: 50px;
-    width: 100%;
-}
-
-html, body
-{
-    height: 100%
-}
