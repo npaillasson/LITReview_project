@@ -1,6 +1,4 @@
 {% extends 'review/base.html'  %}
-{% load form_tags %}
-Index
 {% block body %}
 	<div class="col-10">
 		{% if section == 'flux' %}
@@ -24,19 +22,8 @@ Index
 		{% endif %}
 		<div class="">
 			{% for ticket in ticket_to_display %}
-			{% if ticket|type_object == 'Ticket' %}
-			<div class="col-12 col-lg-8 border rounded m-2 mx-auto">
-				 <div class="d-flex justify-content-between">
-					 <p>{{ticket.user}}</p>
-					 <p>{{ticket.time_created}}</p>
-				 </div>
-				<p class="fs-3">{{ ticket.title }}</p>
-				<p>{{ticket.description}}</p>
-				{% if ticket.image %}
-				<img class="m-2" src="media/{{ ticket.image }}" style="width: 12rem">
-				{% endif %}
-				{% endif %}
-			</div>
+			{% include 'includes/ticket.html' %}
+		</div>
 			{% endfor %}
 		</div>
 	</div>
