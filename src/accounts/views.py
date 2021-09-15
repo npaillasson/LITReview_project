@@ -4,7 +4,9 @@ from django.contrib.auth import login as auth_login
 
 
 def new_account(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        return redirect('review:index')
+    elif request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -14,7 +16,5 @@ def new_account(request):
         form = UserCreationForm
     return render(request, 'accounts/new_account.html', {'form': form})
 
-def auth(request):
-    return render(request, 'accounts/auth.html')
 
 

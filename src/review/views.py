@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.views.generic import DeleteView, CreateView
 from django.urls import reverse_lazy
 from operator import attrgetter
-from .forms import NewTicketForm, NewFollowedUser
+from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket
 
 @login_required
@@ -49,8 +49,13 @@ def new_ticket(request):
             ticket.save()
             return redirect('review:index')
     else:
-        form = NewTicketForm
+        form = NewTicketForm()
     return render(request, 'review/new_ticket.html', {'form': form, 'page': request.path})
+
+@login_required()
+def new_review(request):
+    form = NewReviewForm()
+    return render(request, 'review/new_review.html', {'form': form})
 
 @login_required()
 def subscription_page(request):

@@ -1,0 +1,16 @@
+{% extends 'review/base.html'  %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/new_ticket_style.css' %}">
+  <div class="col-8">
+    <br>
+    <h1 class="new_ticket_title">Créer une review</h1>
+    <br>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <br>
+        <button type="submit" class="btn btn-primary float-end">Envoyer</button>
+      </form>
+  </div>
+{% endblock %}
