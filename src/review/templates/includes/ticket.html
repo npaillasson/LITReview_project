@@ -11,7 +11,7 @@
            <p>{{post.time_created}}</p>
        </div>
       <p class="fs-3">{{ post.title }}</p>
-      <p>{{ticket.description}}</p>
+      <p>{{ post.description }}</p>
       <div class="d-flex">
           {% if post.image %}
           <img class="m-2" src="/media/{{ post.image }}" style="width: 12rem">

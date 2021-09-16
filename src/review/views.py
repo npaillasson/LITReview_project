@@ -125,7 +125,7 @@ class CreationReview(CreateView):
 
     def form_valid(self, form):
         review = form.save(commit=False)
-        print(self.kwargs['pk'])
+        print(self.request.path)
         review.ticket = Ticket.objects.get(id=self.kwargs['pk'])
         review.user = self.request.user
         review.save()
@@ -137,3 +137,29 @@ class CreationReview(CreateView):
         # Add in a QuerySet of all the books
         context['ticket'] = Ticket.objects.get(id=self.kwargs['pk'])
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteReview(DeleteView):
+    model = Review
+    success_url = reverse_lazy('review:index')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+
+@method_decorator(login_required, name='dispatch')
+class EditTicket(UpdateView):
+    model = Review
+    fields = ('headline', 'rating', 'body' )
+    template_name = 'review/new_review.html'
+
+    def form_valid(self, form):
+        review = form
+        review.save()
+        return redirect('review:index')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
