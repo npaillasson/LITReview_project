@@ -1,0 +1,8 @@
+{% load form_tags %}
+{% load static %}
+
+{% if post|type_object == 'Ticket' %}
+{% include 'includes/ticket.html' %}
+{% else %}
+{% include 'includes/review.html' %}
+{% endif %}

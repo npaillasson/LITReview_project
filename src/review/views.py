@@ -14,15 +14,18 @@ from .models import UserFollows, Ticket, Review
 def index(request):
     section = "flux"
     followed_user = []
-    followed_users_tickets = []
+    followed_users_posts = []
     for user in request.user.following.all():
         followed_user.append(user.followed_user)
-    tickets_to_display = list(Ticket.objects.filter(user=request.user))
+    posts_to_display = list(Ticket.objects.filter(user=request.user))
+    posts_to_display.extend(list(Review.objects.filter(user=request.user)))
     for user in followed_user:
-        followed_users_tickets.extend(list(Ticket.objects.filter(user=user)))
-    tickets_to_display.extend(followed_users_tickets)
-    tickets_to_display.sort(key=attrgetter('time_created'), reverse=True)
-    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': tickets_to_display})
+        followed_users_posts.extend(list(Ticket.objects.filter(user=user)))
+        followed_users_posts.extend(list(Review.objects.filter(user=user)))
+    posts_to_display.extend(followed_users_posts)
+    posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
+    return render(request, 'review/index.html', {'page': request.path, 'section': section,
+                                                 'posts_to_display': posts_to_display, 'range': range(5)})
 
 @login_required
 def posts(request):

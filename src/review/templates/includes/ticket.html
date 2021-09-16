@@ -1,30 +1,29 @@
 {% load form_tags %}
 {% load static %}
-  {% if ticket|type_object == 'Ticket' %}
+
   <div class="col-12 col-lg-8 border rounded m-2 mx-auto">
        <div class="d-flex justify-content-between">
-           {% if ticket.user == user %}
+           {% if post.user == user %}
            <p>Vous avez demandé une critique</p>
            {% else %}
-           <p>{{ticket.user}} a demandé une critique</p>
+           <p>{{post.user}} a demandé une critique</p>
            {% endif %}
-           <p>{{ticket.time_created}}</p>
+           <p>{{post.time_created}}</p>
        </div>
-      <p class="fs-3">{{ ticket.title }}</p>
+      <p class="fs-3">{{ post.title }}</p>
       <p>{{ticket.description}}</p>
       <div class="d-flex">
-          {% if ticket.image %}
-          <img class="m-2" src="/media/{{ ticket.image }}" style="width: 12rem">
+          {% if post.image %}
+          <img class="m-2" src="/media/{{ post.image }}" style="width: 12rem">
           {% endif %}
           {% if page %}
           <div class="d-flex flex-row align-items-end ms-auto m-2">
-              <button class="btn btn-primary m-2" onclick="window.location.href= 'answer_ticket/{{ticket.id}}/'">Répondre</button>
-              {% if ticket.user == user %}
-              <button class="btn btn-danger m-2" onclick="window.location.href= 'delete_ticket/{{ticket.id}}/'">supprimer</button>
-              <button class="btn btn-success m-2" onclick="window.location.href= 'update_ticket/{{ticket.id}}/'">Editer</button>
+              <button class="btn btn-primary m-2" onclick="window.location.href= 'answer_ticket/{{post.id}}/'">Répondre</button>
+              {% if post.user == user %}
+              <button class="btn btn-danger m-2" onclick="window.location.href= 'delete_ticket/{{post.id}}/'">supprimer</button>
+              <button class="btn btn-success m-2" onclick="window.location.href= 'update_ticket/{{post.id}}/'">Editer</button>
               {% endif %}
           </div>
           {% endif %}
       </div>
   </div>
-{% endif %}

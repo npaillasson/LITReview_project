@@ -7,7 +7,7 @@
 				<button class="btn-sm btn-outline-secondary col-lg-4 col-5 m-2" onclick="window.location.href= '{% url 'review:new_ticket' %}'"> Créer une critique</button>
 		</div>
 		{% endif %}
-		{% if not ticket_to_display %}
+		{% if not posts_to_display %}
 		<div class="d-flex h-75">
 			<div class="col-lg-8 col-12 border rounded align-self-center mx-auto">
 				<h1 class="fs-4 text-center">Oups... on dirait que votre flux est vide!</h1>
@@ -21,8 +21,8 @@
 		</div>
 		{% endif %}
 		<div>
-			{% for ticket in ticket_to_display %}
-			{% include 'includes/ticket.html' %}
+			{% for post in posts_to_display %}
+			{% include 'includes/posts.html' %}
 			{% endfor %}
 		</div>
 	</div>
