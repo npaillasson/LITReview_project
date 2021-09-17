@@ -7,6 +7,7 @@
     {{ field.label_tag }}
     {% render_field field class="form-check" %}
   </div>
+  <br>
 {% else %}
   <div class="form-group">
     {{ field.label_tag }}
@@ -22,5 +23,6 @@
       </small>
     {% endif %}
   </div>
+  <br>
     {% endif %}
 {% endfor %}

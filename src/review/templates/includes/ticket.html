@@ -4,11 +4,11 @@
   <div class="col-12 col-lg-8 border rounded m-2 p-2 mx-auto">
        <div class="d-flex justify-content-between">
            {% if post.user == user %}
-           <p>Vous avez demandé une critique</p>
+           <p class="text-muted fs-6">Vous avez demandé une critique</p>
            {% else %}
-           <p>{{post.user}} a demandé une critique</p>
+           <p class="text-muted fs-6">{{post.user}} a demandé une critique</p>
            {% endif %}
-           <p>{{post.time_created}}</p>
+           <p class="text-muted fs-6">{{post.time_created}}</p>
        </div>
       <p class="fs-3">{{ post.title }}</p>
       <p>{{ post.description }}</p>
