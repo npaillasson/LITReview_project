@@ -135,7 +135,7 @@ class CreationReview(CreateView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['ticket'] = Ticket.objects.get(id=self.kwargs['pk'])
+        context['post'] = Ticket.objects.get(id=self.kwargs['pk'])
         return context
 
 
