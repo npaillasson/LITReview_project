@@ -22,3 +22,16 @@ footer
     height: 50px;
     width: 100%;
 }
+
+ul.form-check
+{
+flex-direction: row;
+display: flex;
+list-style:none;
+justify-content: space-around;
+}
+
+ul.form-check li
+{
+
+}

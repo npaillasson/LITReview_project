@@ -1,7 +1,7 @@
 {% load form_tags %}
 {% load static %}
 
-  <div class="col-12 col-lg-8 border rounded m-2 mx-auto">
+  <div class="col-12 col-lg-8 border rounded m-2 p-2 mx-auto">
        <div class="d-flex justify-content-between">
            {% if post.user == user %}
            <p>Vous avez demandé une critique</p>
@@ -14,10 +14,10 @@
       <p>{{ post.description }}</p>
       <div class="d-flex">
           {% if post.image %}
-          <img class="m-2" src="/media/{{ post.image }}" style="width: 12rem">
+          <img class="border" src="/media/{{ post.image }}" style="width: 12rem">
           {% endif %}
           {% if page %}
-          <div class="d-flex flex-row align-items-end ms-auto m-2">
+          <div class="d-flex flex-row align-items-end ms-auto">
               <button class="btn btn-primary m-2" onclick="window.location.href= 'answer_ticket/{{post.id}}/'">Répondre</button>
               {% if post.user == user %}
               <button class="btn btn-danger m-2" onclick="window.location.href= 'delete_ticket/{{post.id}}/'">supprimer</button>
