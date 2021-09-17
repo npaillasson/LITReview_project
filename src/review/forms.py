@@ -19,3 +19,5 @@ class NewReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'headline', 'body']
+
+

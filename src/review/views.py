@@ -14,15 +14,17 @@ from .models import UserFollows, Ticket, Review
 def index(request):
     section = "flux"
     followed_user = []
-    followed_users_posts = []
+    user_tickets = list(request.user.ticket_set.all())
+    posts_to_display = list(user_tickets)
+    for ticket in user_tickets:
+        posts_to_display.extend(list(ticket.review_set.all()))
+    posts_to_display.extend(list(request.user.review_set.all()))
     for user in request.user.following.all():
         followed_user.append(user.followed_user)
-    posts_to_display = list(Ticket.objects.filter(user=request.user))
-    posts_to_display.extend(list(Review.objects.filter(user=request.user)))
     for user in followed_user:
-        followed_users_posts.extend(list(Ticket.objects.filter(user=user)))
-        followed_users_posts.extend(list(Review.objects.filter(user=user)))
-    posts_to_display.extend(followed_users_posts)
+        posts_to_display.extend(list(user.ticket_set.all()))
+        posts_to_display.extend(list(user.review_set.all()))
+    posts_to_display = list(set(posts_to_display))
     posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
     return render(request, 'review/index.html', {'page': request.path, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
@@ -30,15 +32,15 @@ def index(request):
 @login_required
 def posts(request):
     section = "posts"
-    followed_user = []
-    followed_users_tickets = []
-    for user in request.user.following.all():
-        followed_user.append(user.followed_user)
-    tickets_to_display = list(Ticket.objects.filter(user=request.user))
-    for user in followed_user:
-        followed_users_tickets.extend(list(Ticket.objects.filter(user=user)))
-    tickets_to_display.extend(followed_users_tickets)
-    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'ticket_to_display': tickets_to_display})
+    user_tickets = list(request.user.ticket_set.all())
+    posts_to_display = list(user_tickets)
+    for ticket in user_tickets:
+        posts_to_display.extend(list(ticket.review_set.all()))
+    posts_to_display.extend(list(request.user.review_set.all()))
+    posts_to_display.extend(list(request.user.review_set.all()))
+    posts_to_display = list(set(posts_to_display))
+    posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
+    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'posts_to_display': posts_to_display, 'range': range(5)})
 
 @login_required()
 def new_ticket(request):
@@ -150,15 +152,22 @@ class DeleteReview(DeleteView):
 
 
 @method_decorator(login_required, name='dispatch')
-class EditTicket(UpdateView):
+class EditReview(UpdateView):
     model = Review
-    fields = ('headline', 'rating', 'body' )
+    form_class = NewReviewForm
     template_name = 'review/new_review.html'
 
     def form_valid(self, form):
         review = form
         review.save()
         return redirect('review:index')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['post'] = self.object.ticket
+        return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
