@@ -25,5 +25,15 @@
 			{% include 'includes/posts.html' %}
 			{% endfor %}
 		</div>
+		<nav aria-label="...">
+			<ul class="pagination justify-content-center">
+			  	{% if posts_to_display.has_previous %}
+			  	<li class="page-item text-center m-2"><a class="page-link" href="?page={{ posts_to_display.previous_page_number }}">Précédent</a></li>
+			  	{% endif %}
+			  	{% if posts_to_display.has_next %}
+			  	<li class="page-item text-center m-2"><a class="page-link" href="?page={{ posts_to_display.next_page_number }}">Suivant</a></li>
+			  	{% endif %}
+			</ul>
+  		</nav>
 	</div>
 {% endblock %}

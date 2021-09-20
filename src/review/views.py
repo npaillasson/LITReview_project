@@ -9,23 +9,32 @@ from django.urls import reverse_lazy
 from operator import attrgetter
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def index(request):
     section = "flux"
     followed_user = []
     user_tickets = list(request.user.ticket_set.all())
-    posts_to_display = list(user_tickets)
+    posts_list = list(user_tickets)
     for ticket in user_tickets:
-        posts_to_display.extend(list(ticket.review_set.all()))
-    posts_to_display.extend(list(request.user.review_set.all()))
+        posts_list.extend(list(ticket.review_set.all()))
+    posts_list.extend(list(request.user.review_set.all()))
     for user in request.user.following.all():
         followed_user.append(user.followed_user)
     for user in followed_user:
-        posts_to_display.extend(list(user.ticket_set.all()))
-        posts_to_display.extend(list(user.review_set.all()))
-    posts_to_display = list(set(posts_to_display))
-    posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
+        posts_list.extend(list(user.ticket_set.all()))
+        posts_list.extend(list(user.review_set.all()))
+    posts_list = list(set(posts_list))
+    posts_list.sort(key=attrgetter('time_created'), reverse=True)
+    paginator_posts_list = Paginator(posts_list, 4)
+    page = request.GET.get('page')
+    try:
+        posts_to_display = paginator_posts_list.page(page)
+    except PageNotAnInteger:
+        posts_to_display = paginator_posts_list.page(1)
+    except EmptyPage:
+        posts_to_display = paginator_posts_list.page(paginator_posts_list.num_pages)
     return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
 
@@ -69,7 +78,7 @@ def subscription_page(request):
 
 @login_required()
 def new_follow(request):
-    user_follow = User.objects.get(username=request.GET.get("subscribe_to"))
+    user_follow = User.objects.get(username=request.POST.get("subscribe_to"))
     if user_follow:
         if user_follow == request.user:
             return redirect('review:subscription_page')
@@ -128,16 +137,15 @@ class CreateReview(CreateView):
 
     def form_valid(self, form):
         review = form.save(commit=False)
-        print(self.request.path)
         review.ticket = Ticket.objects.get(id=self.kwargs['pk'])
+        if review.ticket.review_set.all():
+            return redirect('review:index')
         review.user = self.request.user
         review.save()
         return redirect('review:index')
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         context['post'] = Ticket.objects.get(id=self.kwargs['pk'])
         context['ticket_button'] = False
         return context
@@ -165,9 +173,7 @@ class EditReview(UpdateView):
         return redirect('review:index')
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         context['post'] = self.object.ticket
         context['ticket_button'] = False
         return context

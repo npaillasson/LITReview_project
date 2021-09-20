@@ -24,3 +24,9 @@ def type_object(object_to_check, autoescape=True):
         return 'Review'
     else:
         return str(type(object_to_check))
+
+@register.filter()
+def author_name(ticket):
+    review = list(ticket.review_set.all())[0]
+    review_author = review.user
+    return review_author

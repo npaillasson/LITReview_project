@@ -14,13 +14,21 @@
    </div>
       <p class="fs-3">{{ post.title }}</p>
       <p>{{ post.description }}</p>
-  <div class="d-flex">
+   <div class="d-flex">
       {% if post.image %}
       <img class="border" src="/media/{{ post.image }}" style="width: 12rem">
       {% endif %}
       {% if ticket_button %}
       <div class="d-flex flex-row align-items-end ms-auto">
+          {% if not post.review_set.all %}
           <button class="btn btn-primary m-2" onclick="window.location.href= 'answer_ticket/{{post.id}}/'">Répondre</button>
+          {% else %}
+          {% if post|author_name == user %}
+          <small>Vous avez déjà posté une critique sur ce livre</small>
+          {% else %}
+          <small>Ce livre à déjà été critiqué par {{post|author_name}}</small>
+          {% endif %}
+          {% endif %}
           {% if post.user == user %}
           <button class="btn btn-danger m-2" onclick="window.location.href= 'delete_ticket/{{post.id}}/'">supprimer</button>
           <button class="btn btn-success m-2" onclick="window.location.href= 'update_ticket/{{post.id}}/'">Editer</button>
