@@ -26,7 +26,7 @@ def index(request):
         posts_to_display.extend(list(user.review_set.all()))
     posts_to_display = list(set(posts_to_display))
     posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
-    return render(request, 'review/index.html', {'page': request.path, 'section': section,
+    return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
 
 @login_required
@@ -40,7 +40,8 @@ def posts(request):
     posts_to_display.extend(list(request.user.review_set.all()))
     posts_to_display = list(set(posts_to_display))
     posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
-    return render(request, 'review/index.html', {'page': request.path, 'section': section, 'posts_to_display': posts_to_display, 'range': range(5)})
+    return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
+                                                 'posts_to_display': posts_to_display, 'range': range(5)})
 
 @login_required()
 def new_ticket(request):
@@ -117,7 +118,7 @@ class DeleteTicket(DeleteView):
         return queryset.filter(user=self.request.user)
 
 @method_decorator(login_required, name='dispatch')
-class CreationReview(CreateView):
+class CreateReview(CreateView):
     model = Review
     form_class = NewReviewForm
     success_url = reverse_lazy('review:index')
@@ -138,6 +139,7 @@ class CreationReview(CreateView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['post'] = Ticket.objects.get(id=self.kwargs['pk'])
+        context['ticket_button'] = False
         return context
 
 
@@ -167,8 +169,13 @@ class EditReview(UpdateView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['post'] = self.object.ticket
+        context['ticket_button'] = False
         return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
+
+def create_ticket_and_review(request):
+    return render(request, 'new_ticket_and_review.html')

@@ -1,0 +1,21 @@
+{% extends 'review/base.html'  %}
+{% load static %}
+{% block body %}
+  <div class="col-8 border rounded m-3">
+    <div class="border-bottom">
+      <p>Vous êtes en train de poster en réponse à</p>
+      <div class="m-2">
+        {% include 'includes/posts.html' %}
+      </div>
+    </div>
+    <div class="m-2">
+      <h1 class="fs-5 text-center">Créer une review</h1>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% include 'includes/form.html' %}
+          <br>
+          <button type="submit" class="btn btn-primary float-end m-2">Envoyer</button>
+        </form>
+    </div>
+  </div>
+{% endblock %}
