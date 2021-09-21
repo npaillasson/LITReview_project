@@ -1,54 +1,24 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .forms import NewTicketForm
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth import get_user_model
 from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
-from operator import attrgetter
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .review_functions import multi_request
 
 @login_required
 def index(request):
     section = "flux"
-    followed_user = []
-    user_tickets = list(request.user.ticket_set.all())
-    posts_list = list(user_tickets)
-    for ticket in user_tickets:
-        posts_list.extend(list(ticket.review_set.all()))
-    posts_list.extend(list(request.user.review_set.all()))
-    for user in request.user.following.all():
-        followed_user.append(user.followed_user)
-    for user in followed_user:
-        posts_list.extend(list(user.ticket_set.all()))
-        posts_list.extend(list(user.review_set.all()))
-    posts_list = list(set(posts_list))
-    posts_list.sort(key=attrgetter('time_created'), reverse=True)
-    paginator_posts_list = Paginator(posts_list, 4)
-    page = request.GET.get('page')
-    try:
-        posts_to_display = paginator_posts_list.page(page)
-    except PageNotAnInteger:
-        posts_to_display = paginator_posts_list.page(1)
-    except EmptyPage:
-        posts_to_display = paginator_posts_list.page(paginator_posts_list.num_pages)
+    posts_to_display = multi_request(feed=True, request=request)
     return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
 
 @login_required
 def posts(request):
     section = "posts"
-    user_tickets = list(request.user.ticket_set.all())
-    posts_to_display = list(user_tickets)
-    for ticket in user_tickets:
-        posts_to_display.extend(list(ticket.review_set.all()))
-    posts_to_display.extend(list(request.user.review_set.all()))
-    posts_to_display.extend(list(request.user.review_set.all()))
-    posts_to_display = list(set(posts_to_display))
-    posts_to_display.sort(key=attrgetter('time_created'), reverse=True)
+    posts_to_display = multi_request(request=request)
     return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
 
@@ -137,7 +107,7 @@ class CreateReview(CreateView):
 
     def form_valid(self, form):
         review = form.save(commit=False)
-        review.ticket = Ticket.objects.get(id=self.kwargs['pk'])
+        review.ticket = Ticket.objects.get(id=self.kwargs['ticket_pk'])
         if review.ticket.review_set.all():
             return redirect('review:index')
         review.user = self.request.user
@@ -146,7 +116,7 @@ class CreateReview(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post'] = Ticket.objects.get(id=self.kwargs['pk'])
+        context['post'] = Ticket.objects.get(id=self.kwargs['ticket_pk'])
         context['ticket_button'] = False
         return context
 

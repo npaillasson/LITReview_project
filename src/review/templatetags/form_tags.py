@@ -17,7 +17,7 @@ def input_class(bound_field):
     return 'form-control {}'.format(css_class)
 
 @register.filter()
-def type_object(object_to_check, autoescape=True):
+def type_object(object_to_check):
     if str(type(object_to_check)) == "<class 'review.models.Ticket'>":
         return 'Ticket'
     elif str(type(object_to_check)) == "<class 'review.models.Review'>":
