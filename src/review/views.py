@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
+from django.db import transaction
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
 from .review_functions import multi_request, review_already_exist, get_ticket_from_pk
@@ -151,10 +152,26 @@ class EditReview(UpdateView):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
 
+@transaction.atomic
 def create_ticket_and_review(request):
-    form_ticket = NewTicketForm
-    form_review = NewReviewForm
-    form_ticket_list = [form_ticket,]
-    form_review_list = [form_review,]
+
+    if request.method == 'POST':
+        form_ticket = NewTicketForm(request.POST)
+        form_review = NewReviewForm(request.POST)
+        if form_ticket.is_valid() and form_review.is_valid():
+            ticket = form_ticket.save(commit=False)
+            ticket.image = form_ticket.cleaned_data.get('image')
+            ticket.user = request.user
+            ticket.save()
+            review = form_review.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+            return redirect('review:index')
+
+    form_ticket = NewTicketForm()
+    form_review = NewReviewForm()
+    form_ticket_list = [form_ticket]
+    form_review_list = [form_review]
     return render(request, 'review/new_ticket_and_review.html',
                   context={'form_ticket_list': form_ticket_list, 'form_review_list': form_review_list})
