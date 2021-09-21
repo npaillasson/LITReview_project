@@ -1,9 +1,9 @@
 
 ***
-[See below for the English version](LITReview_project-(en)) 
+[See below for the English version](#LITReview_project-(en)) 
 ***
 
-#Projet LITReview (fr)
+# Projet LITReview (fr)
 
 ***
 
@@ -81,7 +81,7 @@ Pour créer un rapport de conformité à la pep 8 vous pouvez utiliser:
 $ flake8 --format=html --htmldir=flake-report --max-line-length=119 
 ```
 ***
-#LITReview_project (en)
+# LITReview_project (en)
 ***
 This project is entirely coded in python 3.
 
