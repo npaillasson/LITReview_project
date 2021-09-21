@@ -1,6 +1,6 @@
 
 ***
-[See below for the English version](#LITReview_project-(en)) 
+[Watch below for the English version](#LITReview_project-en) 
 ***
 
 # Projet LITReview (fr)
