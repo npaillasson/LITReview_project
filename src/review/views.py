@@ -116,6 +116,7 @@ class CreateReview(CreateView):
         review_already_exist(self.kwargs['pk'])
         context['post'] = get_ticket_from_pk(self.kwargs['pk'])
         context['ticket_button'] = False
+        context['page'] = 'new_review'
         return context
 
 
