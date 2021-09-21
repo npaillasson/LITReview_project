@@ -6,7 +6,7 @@ from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
-from .review_functions import multi_request
+from .review_functions import multi_request, review_already_exist, get_ticket_from_pk
 
 @login_required
 def index(request):
@@ -104,19 +104,17 @@ class CreateReview(CreateView):
     template_name = 'review/new_review.html'
     context_object_name = 'review'
 
-
     def form_valid(self, form):
         review = form.save(commit=False)
-        review.ticket = Ticket.objects.get(id=self.kwargs['ticket_pk'])
-        if review.ticket.review_set.all():
-            return redirect('review:index')
+        review.ticket = get_ticket_from_pk(self.kwargs['pk'])
         review.user = self.request.user
         review.save()
         return redirect('review:index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post'] = Ticket.objects.get(id=self.kwargs['ticket_pk'])
+        review_already_exist(self.kwargs['pk'])
+        context['post'] = get_ticket_from_pk(self.kwargs['pk'])
         context['ticket_button'] = False
         return context
 
