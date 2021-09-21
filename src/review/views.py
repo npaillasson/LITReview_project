@@ -151,6 +151,10 @@ class EditReview(UpdateView):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
 
-
 def create_ticket_and_review(request):
-    return render(request, 'new_ticket_and_review.html')
+    form_ticket = NewTicketForm
+    form_review = NewReviewForm
+    form_ticket_list = [form_ticket,]
+    form_review_list = [form_review,]
+    return render(request, 'review/new_ticket_and_review.html',
+                  context={'form_ticket_list': form_ticket_list, 'form_review_list': form_review_list})
