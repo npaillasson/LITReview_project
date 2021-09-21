@@ -1,6 +1,6 @@
 
 ***
-[english version of the Readme](#LITReview_project)
+[See below for the English version](LITReview_project-(en)) 
 ***
 
 #Projet LITReview (fr)
@@ -18,7 +18,7 @@ Ce projet est une interface web qui permet de poster des critiques de livre et d
 
 ***
 
-## Information Generales
+## Informations Generales
 
 Ce projet utilise le framework [django](https://docs.djangoproject.com/fr/3.2/) pour la création du backend. Pour la création de l'interface frontend, le projet utilise [bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/). Pour le système de notation en étoiles, le projet utilise les étoiles proposé par [line awesome](https://icons8.com/line-awesome). Le projet utilise un rendu coté serveur pour afficher des pages dynamiquement aux utilisateurs du site.
 
