@@ -2,9 +2,11 @@ from django import template
 
 register = template.Library()
 
+
 @register.filter
 def field_type(bound_field):
     return bound_field.field.widget.__class__.__name__
+
 
 @register.filter
 def input_class(bound_field):
@@ -16,6 +18,7 @@ def input_class(bound_field):
             css_class = 'is-valid'
     return 'form-control {}'.format(css_class)
 
+
 @register.filter()
 def type_object(object_to_check):
     if str(type(object_to_check)) == "<class 'review.models.Ticket'>":
@@ -24,6 +27,7 @@ def type_object(object_to_check):
         return 'Review'
     else:
         return str(type(object_to_check))
+
 
 @register.filter()
 def author_name(ticket):

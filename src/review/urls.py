@@ -16,4 +16,3 @@ urlpatterns = [
     path(r'subscription/add/', new_follow, name='new_follow'),
     path("subscription/<int:pk>/delete_subscription/", DeleteSubscription.as_view(), name='delete_subscription')
 ]
-

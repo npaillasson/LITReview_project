@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse, resolve
 from review.views import index
 
+
 class HomeTests(TestCase):
     def test_home_view_status_code(self):
         url = reverse('index')

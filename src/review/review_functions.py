@@ -1,9 +1,8 @@
 from operator import attrgetter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
-from django.shortcuts import render, redirect
 from .models import Ticket
-from .forms import NewTicketForm, NewReviewForm
+
 
 def multi_request(request, feed=False):
     followed_user = []
@@ -29,6 +28,7 @@ def multi_request(request, feed=False):
     except EmptyPage:
         posts_to_display = paginator_posts_list.page(paginator_posts_list.num_pages)
     return posts_to_display
+
 
 def review_already_exist(ticket_pk):
     ticket = get_ticket_from_pk(ticket_pk)
@@ -57,5 +57,3 @@ def create_ticket(request, form_ticket):
     ticket.user = request.user
     ticket.save()
     return ticket
-
-

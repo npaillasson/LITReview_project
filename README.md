@@ -75,10 +75,10 @@ Pour désactiver l'environnement virtuel, utilisez la commande suivante :
 $ deactivate
 ```
 
-Pour créer un rapport de conformité à la pep 8 vous pouvez utiliser :
+Pour créer un rapport de conformité à la pep 8 vous pouvez utiliser la commande suivante à la racine du projet :
 
 ```
-$ flake8 --format=html --htmldir=flake-report --max-line-length=119 
+$ flake8 --format=html --htmldir=flake-report --max-line-length=119 --exclude='src/*/migrations/*.py' src/
 ```
 ***
 # LITReview_project (en)
@@ -152,10 +152,10 @@ To deactivate the virtual environement use :
 $ deactivate
 ```
 
-You can create a flake-8 repport with the next command :
+You can create a flake-8 repport with the next command at the project root :
 
 ```
-$ flake8 --format=html --htmldir=flake-report --max-line-length=119 
+$ flake8 --format=html --htmldir=flake-report --max-line-length=119 --exclude='src/*/migrations/*.py' src/
 ```
 
 ****

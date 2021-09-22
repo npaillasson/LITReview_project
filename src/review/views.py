@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.utils import IntegrityError
 from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from django.db import transaction
@@ -49,6 +50,7 @@ def subscription_page(request):
                                                          'list_of_following_users': request.user.following.all(),
                                                          'list_of_followed_users': request.user.following_by.all()})
 
+
 @login_required()
 def new_follow(request):
     user_follow = User.objects.get(username=request.POST.get("subscribe_to"))
@@ -56,12 +58,12 @@ def new_follow(request):
         if user_follow == request.user:
             return redirect('review:subscription_page')
         else:
-            NewFollowedUser = UserFollows()
-            NewFollowedUser.user = request.user
-            NewFollowedUser.followed_user = user_follow
+            new_followed_user = UserFollows()
+            new_followed_user.user = request.user
+            new_followed_user.followed_user = user_follow
             try:
-                NewFollowedUser.save()
-            except:
+                new_followed_user.save()
+            except IntegrityError:
                 pass
             return redirect('review:subscription_page')
 
@@ -74,6 +76,7 @@ class DeleteSubscription(DeleteView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
 
 @method_decorator(login_required, name='dispatch')
 class EditTicket(UpdateView):
@@ -90,6 +93,7 @@ class EditTicket(UpdateView):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
 
+
 @method_decorator(login_required, name='dispatch')
 class DeleteTicket(DeleteView):
     model = Ticket
@@ -98,6 +102,7 @@ class DeleteTicket(DeleteView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
 
 @method_decorator(login_required, name='dispatch')
 class CreateReview(CreateView):
@@ -153,6 +158,7 @@ class EditReview(UpdateView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
 
 @transaction.atomic
 def create_ticket_and_review(request):
