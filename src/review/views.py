@@ -7,7 +7,9 @@ from django.urls import reverse_lazy
 from django.db import transaction
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
-from .review_functions import multi_request, review_already_exist, get_ticket_from_pk, create_ticket_and_answer, create_ticket
+from .review_functions import multi_request, review_already_exist, get_ticket_from_pk, \
+    create_ticket_and_answer, create_ticket
+
 
 @login_required
 def index(request):
@@ -16,12 +18,14 @@ def index(request):
     return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
 
+
 @login_required
 def posts(request):
     section = "posts"
     posts_to_display = multi_request(request=request)
     return render(request, 'review/index.html', {'ticket_button': True, 'section': section,
                                                  'posts_to_display': posts_to_display, 'range': range(5)})
+
 
 @login_required()
 def new_ticket(request):
@@ -34,6 +38,7 @@ def new_ticket(request):
     else:
         form = NewTicketForm()
     return render(request, 'review/new_ticket.html', {'form': form, 'page': request.path})
+
 
 @login_required()
 def subscription_page(request):

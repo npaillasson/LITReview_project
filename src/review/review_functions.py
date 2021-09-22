@@ -20,7 +20,7 @@ def multi_request(request, feed=False):
             posts_list.extend(list(user.review_set.all()))
     posts_list = list(set(posts_list))
     posts_list.sort(key=attrgetter('time_created'), reverse=True)
-    paginator_posts_list = Paginator(posts_list, 4)
+    paginator_posts_list = Paginator(posts_list, 9)
     page = request.GET.get('page')
     try:
         posts_to_display = paginator_posts_list.page(page)
