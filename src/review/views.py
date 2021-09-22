@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.db import transaction
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
-from .review_functions import multi_request, review_already_exist, get_ticket_from_pk
+from .review_functions import multi_request, review_already_exist, get_ticket_from_pk, create_ticket_and_answer, create_ticket
 
 @login_required
 def index(request):
@@ -29,10 +29,7 @@ def new_ticket(request):
     if request.method == 'POST':
         form = NewTicketForm(request.POST, request.FILES)
         if form.is_valid():
-            ticket = form.save(commit=False)
-            ticket.image = form.cleaned_data.get('image')
-            ticket.user = request.user
-            ticket.save()
+            create_ticket(request, form_ticket=form)
             return redirect('review:index')
     else:
         form = NewTicketForm()
@@ -156,17 +153,10 @@ class EditReview(UpdateView):
 def create_ticket_and_review(request):
 
     if request.method == 'POST':
-        form_ticket = NewTicketForm(request.POST)
+        form_ticket = NewTicketForm(request.POST, request.FILES)
         form_review = NewReviewForm(request.POST)
         if form_ticket.is_valid() and form_review.is_valid():
-            ticket = form_ticket.save(commit=False)
-            ticket.image = form_ticket.cleaned_data.get('image')
-            ticket.user = request.user
-            ticket.save()
-            review = form_review.save(commit=False)
-            review.ticket = ticket
-            review.user = request.user
-            review.save()
+            create_ticket_and_answer(request, form_ticket, form_review)
             return redirect('review:index')
 
     form_ticket = NewTicketForm()

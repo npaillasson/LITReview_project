@@ -1,7 +1,9 @@
 from operator import attrgetter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
+from django.shortcuts import render, redirect
 from .models import Ticket
+from .forms import NewTicketForm, NewReviewForm
 
 def multi_request(request, feed=False):
     followed_user = []
@@ -36,3 +38,24 @@ def review_already_exist(ticket_pk):
 
 def get_ticket_from_pk(ticket_pk):
     return Ticket.objects.get(id=ticket_pk)
+
+
+def create_ticket_and_answer(request, form_ticket, form_review):
+
+    ticket = create_ticket(request, form_ticket)
+    review = form_review.save(commit=False)
+    review.ticket = ticket
+    review.user = request.user
+    review.save()
+    return review
+
+
+def create_ticket(request, form_ticket):
+
+    ticket = form_ticket.save(commit=False)
+    ticket.image = form_ticket.cleaned_data.get('image')
+    ticket.user = request.user
+    ticket.save()
+    return ticket
+
+
