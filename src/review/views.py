@@ -6,6 +6,7 @@ from django.db.utils import IntegrityError
 from django.views.generic import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist
 from .forms import NewTicketForm, NewReviewForm
 from .models import UserFollows, Ticket, Review
 from .review_functions import multi_request, review_already_exist, get_ticket_from_pk, \
@@ -53,7 +54,10 @@ def subscription_page(request):
 
 @login_required()
 def new_follow(request):
-    user_follow = User.objects.get(username=request.POST.get("subscribe_to"))
+    try:
+        user_follow = User.objects.get(username=request.POST.get("subscribe_to"))
+    except ObjectDoesNotExist:
+        return redirect('review:subscription_page')
     if user_follow:
         if user_follow == request.user:
             return redirect('review:subscription_page')

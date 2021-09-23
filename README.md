@@ -32,7 +32,7 @@ L'ensemble des packages et dépendances à installer pour pouvoir lancer le proj
 
 Une base de données contenant déjà des utilisateurs des tickets et des reviews en exemple est présente dans le repository. 
 
-Le site est accèssible aux utilisateurs connéctés uniquement.
+Le site est accessible aux utilisateurs connéctés uniquement.
 
 Un compte de démonstration disposant d'abonnements de critiques et de tickets est accessible :
 
@@ -41,9 +41,9 @@ Un compte de démonstration disposant d'abonnements de critiques et de tickets e
 
 Il est aussi possible de créer un compte en remplissant le formulaire d'inscription.
 
-Lors de votre première connection, vos onglets flux et posts sont vides. Il est possible de créer un commentaire une critique ou de suivre d'autres utilisateurs pour afficher du contenu dans ces onglets.
+Lors de votre première connection, vos onglets flux et posts sont vides. Il est possible de créer un commentaire, une critique, ou de suivre d'autres utilisateurs pour afficher du contenu dans ces onglets.
 
-Pour suivre un autre utilisateur il faut taper son nom d'utilisateur dans le champ prévu à cet effet dans l'onglet abonnement. Dans ce MVP la fonction d'auto-complétion n'est pas disponible.
+Pour suivre un autre utilisateur, il faut taper son nom d'utilisateur dans le champ prévu à cet effet dans l'onglet abonnement. Dans ce MVP la fonction d'auto-complétion n'est pas disponible.
 
 La synthaxe du code respecte les directives de la PEP 8 (vérification avec flake-8). Un rapport flake8 est disponible dans le repertoire flake-report à la racine du projet.
 

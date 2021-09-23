@@ -19,20 +19,28 @@
       <img class="border" src="/media/{{ post.image }}" style="width: 12rem">
       {% endif %}
       {% if ticket_button %}
-      <div class="d-flex flex-row align-items-end ms-auto">
-          {% if not post.review_set.all %}
+       {% if not post.review_set.all %}
+      <div class="d-flex flex-row align-items-end ms-auto col-12">
           <button class="btn btn-primary m-2" onclick="window.location.href= 'answer_ticket/{{post.id}}/'">Répondre</button>
-          {% else %}
-          {% if post|author_name == user %}
-          <small>Vous avez déjà posté une critique sur ce livre</small>
-          {% else %}
-          <small>Ce livre à déjà été critiqué par {{post|author_name}}</small>
-          {% endif %}
-          {% endif %}
+      {% else %}
+          <div class="d-flex flex-column mx-auto flex-grow-1">
+            <div class="d-flex mx-auto mt-auto align-self-center p-2">
+            {% if post|author_name == user %}
+                <small>Vous avez déjà posté une critique sur ce livre</small>
+            </div>
+            {% else %}
+                <small>Ce livre à déjà été critiqué par {{post|author_name}}</small>
+            </div>
+            {% endif %}
+      <div class="d-flex flex-row align-items-bottom ms-auto mt-auto">
+      {% endif %}
           {% if post.user == user %}
           <button class="btn btn-danger m-2" onclick="window.location.href= 'delete_ticket/{{post.id}}/'">supprimer</button>
           <button class="btn btn-success m-2" onclick="window.location.href= 'update_ticket/{{post.id}}/'">Editer</button>
           {% endif %}
+      {% if post.review_set.all %}
+      </div>
+      {% endif %}
       </div>
       {% endif %}
   </div>
