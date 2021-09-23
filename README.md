@@ -24,9 +24,9 @@ Ce projet utilise le framework [django](https://docs.djangoproject.com/fr/3.2/) 
 
 Dans django, le projet utilise deux applications (en dehors des applications django pré-installées) :
 
-*	review: l'application qui est l'application principale et qui gère tout le système de critique et d'abonnement entre utilisateurs.
+*	**review**: l'application qui est l'application principale et qui gère tout le système de critique et d'abonnement entre utilisateurs.
 
-*	account: l'application qui gère le système de connexion et de création de compte utilisateur (le projet utilise le [système d'authentification](https://docs.djangoproject.com/fr/3.2/topics/auth/) inclus dans django).
+*	**account**: l'application qui gère le système de connexion et de création de compte utilisateur (le projet utilise le [système d'authentification](https://docs.djangoproject.com/fr/3.2/topics/auth/) inclus dans django).
 
 L'ensemble des packages et dépendances à installer pour pouvoir lancer le projet sont notés dans le fichier 'requirements.txt' présent à la racine du projet.
 
@@ -111,9 +111,9 @@ This project uses the [django](https://docs.djangoproject.com/en/3.2/) framework
 
 This project uses two applications (besides the pre-installed django applications) :
 
-* review: the application that is the main application and manages the whole review and subscription system.
+* **review**: the application that is the main application and manages the whole review and subscription system.
 
-* account: the application that manages the login, logout and user account creation system (the project uses the [authentication system](https://docs.djangoproject.com/en/3.2/topics/auth/) included in django).
+* **account**: the application that manages the login, logout and user account creation system (the project uses the [authentication system](https://docs.djangoproject.com/en/3.2/topics/auth/) included in django).
 
 All the packages and dependencies needed for the project are noted in the 'requirements.txt' file at the root of the project.
 
@@ -132,7 +132,7 @@ When you first connect, your feeds and posts tabs are empty. It is possible to c
 
 To follow another user, you must type his or her user name in the field provided in the subscription tab. In this MVP, the auto-complete function is not available.
 
-The synthaxe of the code is compliant with the pep 8 (check with flake-8). A flake8 report is available in the flake-report directory at the root of the project.
+The synthaxis of the code is compliant with the pep 8 (check with flake-8). A flake8 report is available in the flake-report directory at the root of the project.
 
 For the moment, the DEBUG parameter in the src/LITReviw/settings.py file has the value "True". If the project goes into production, it will be necessary to change it to "False".
 
@@ -172,7 +172,7 @@ To deactivate the virtual environement use :
 $ deactivate
 ```
 
-You can create a flake-8 repport with the next command at the project root :
+You can create a flake-8 report with the next command at the project root :
 
 ```
 $ flake8 --format=html --htmldir=flake-report --max-line-length=119 --exclude='src/*/migrations/*.py' src/
