@@ -32,12 +32,22 @@ L'ensemble des packages et dépendances à installer pour pouvoir lancer le proj
 
 Une base de données contenant déjà des utilisateurs des tickets et des reviews en exemple est présente dans le repository. 
 
+Le site est accèssible aux utilisateurs connéctés uniquement.
+
 Un compte de démonstration disposant d'abonnements de critiques et de tickets est accessible :
 
 **nom de compte**: DEMO 
-**mot de passe**: POIUYTREZA
+**mot de passe**: MLKJHGFDSQ
 
-La synthaxe du code respecte les directives de la PEP 8 (vérification avec flake-8)
+Il est aussi possible de créer un compte en remplissant le formulaire d'inscription.
+
+Lors de votre première connection, vos onglets flux et posts sont vides. Il est possible de créer un commentaire une critique ou de suivre d'autres utilisateurs pour afficher du contenu dans ces onglets.
+
+Pour suivre un autre utilisateur il faut taper son nom d'utilisateur dans le champ prévu à cet effet dans l'onglet abonnement. Dans ce MVP la fonction d'auto-complétion n'est pas disponible.
+
+La synthaxe du code respecte les directives de la PEP 8 (vérification avec flake-8). Un rapport flake8 est disponible dans le repertoire flake-report à la racine du projet.
+
+Pour information, actuellement, le parametre DEBUG présent dans le fichier src/LITReviw/settings.py a pour valeur "True". En cas de mise en production il sera nécessaire de le passer à "False".
 
 ## Installation Usage
 
@@ -65,7 +75,7 @@ $ pip install requirements.txt
 
 Pour lancer le serveur exécuter la commande suivante :
 ```
-$ python3 manage.py runserver
+$ python3 src/manage.py runserver
 ```
 
 Vous pouvez ensuite aller sur le [site](http://127.0.0.1:8000/) (http://127.0.0.1:8000/)
@@ -109,12 +119,22 @@ All the packages and dependencies needed for the project are noted in the 'requi
 
 A database already containing users, tickets and reviews in example is present in the repository. 
 
+The site is accessible to connected users only.
+
 A demo account with review and ticket subscription is available :
 
 **account name**: DEMO 
-**password**: POIUYTREZA
+**password**: MLKJHGFDSQ
 
-The synthaxe of the code is compliant with the pep 8 (check with flake-8)
+It is also possible to create an account by filling out the registration form.
+
+When you first connect, your feeds and posts tabs are empty. It is possible to create a comment, a review or to follow other users to post content in these tabs.
+
+To follow another user, you must type his or her user name in the field provided in the subscription tab. In this MVP, the auto-complete function is not available.
+
+The synthaxe of the code is compliant with the pep 8 (check with flake-8). A flake8 report is available in the flake-report directory at the root of the project.
+
+For the moment, the DEBUG parameter in the src/LITReviw/settings.py file has the value "True". If the project goes into production, it will be necessary to change it to "False".
 
 ## Installation
 
@@ -142,7 +162,7 @@ $ pip install requirements.txt
 
 To launch the server use :
 ```
-$ python3 manage.py runserver
+$ python3 src/manage.py runserver
 ```
 
 Now you can access the [website](http://127.0.0.1:8000/) (http://127.0.0.1:8000/)
