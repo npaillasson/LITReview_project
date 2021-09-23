@@ -20,10 +20,10 @@
       {% endif %}
       {% if ticket_button %}
        {% if not post.review_set.all %}
-      <div class="d-flex flex-row align-items-end ms-auto col-12">
-          <button class="btn btn-primary m-2 ms-auto" onclick="window.location.href= 'answer_ticket/{{post.id}}/'">Répondre</button>
+      <div class="d-flex flex-row align-items-end ms-auto overflow-scroll">
+           <button class="btn btn-primary m-2" onclick="window.location.href= 'answer_ticket/{{post.id}}/'">Répondre</button>
       {% else %}
-          <div class="d-flex flex-column mx-auto flex-grow-1">
+          <div class="d-flex flex-column mx-auto w-100">
             <div class="d-flex mx-auto mt-auto align-self-center p-2">
             {% if post|author_name == user %}
                 <small>Vous avez déjà posté une critique sur ce livre</small>

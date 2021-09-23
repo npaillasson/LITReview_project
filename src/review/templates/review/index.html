@@ -1,6 +1,6 @@
 {% extends 'review/base.html'  %}
 {% block body %}
-	<div class="col-10">
+	<div class="col-12 p-2">
 		{% if section == 'flux' %}
 		<div class="d-flex col-lg-9 col-12 m-2 justify-content-around mx-auto">
 				<button class="btn-sm btn-outline-secondary col-lg-4 col-5 m-2" onclick="window.location.href= '{% url 'review:new_ticket' %}'"> Demander une critique</button>
