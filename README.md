@@ -70,7 +70,7 @@ $ source env/bin/activate
 
 Vous pouvez ensuite installer les packages nécéssaire grace à pip et au fichier requirements.txt :
 ```
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 Pour lancer le serveur exécuter la commande suivante :
@@ -157,7 +157,7 @@ $ source env/bin/activate
 
 To install the necessary packages use pip and the file requierements.txt :
 ```
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 To launch the server use :
