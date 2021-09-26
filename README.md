@@ -68,6 +68,11 @@ Utilisez ensuite la commande suivante pour activer l'environnement :
 $ source env/bin/activate
 ```
 
+ou sous Windows:
+```
+> env\Scripts\activate
+```
+
 Vous pouvez ensuite installer les packages nécéssaire grace à pip et au fichier requirements.txt :
 ```
 $ pip install -r requirements.txt
@@ -83,6 +88,11 @@ Vous pouvez ensuite aller sur le [site](http://127.0.0.1:8000/) (http://127.0.0.
 Pour désactiver l'environnement virtuel, utilisez la commande suivante :
 ```
 $ deactivate
+```
+
+Ou sous Windows:
+```
+> env\Scripts\deactivate
 ```
 
 Pour créer un rapport de conformité à la pep 8 vous pouvez utiliser la commande suivante à la racine du projet :
@@ -155,6 +165,11 @@ To activate the virtual environment use :
 $ source env/bin/activate
 ```
 
+If you are on Windows use:
+```
+> env\Scripts\activate
+```
+
 To install the necessary packages use pip and the file requierements.txt :
 ```
 $ pip install -r requirements.txt
@@ -170,6 +185,11 @@ Now you can access the [website](http://127.0.0.1:8000/) (http://127.0.0.1:8000/
 To deactivate the virtual environement use :
 ```
 $ deactivate
+```
+
+If you are on Windows use:
+```
+> env\Scripts\deactivate
 ```
 
 You can create a flake-8 report with the next command at the project root :
